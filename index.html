@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Materiais grátis — Clube do Financeiro</title>
+<link href="https://fonts.googleapis.com/css2?family=Michroma&family=Exo+2:wght@400;600&family=Rajdhani:wght@600;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#07090D;--card:#0E141B;--borda:#1D2733;--ink:#E8EEF4;--ink2:#93A4B5;--ciano:#0891B2;--cianoTxt:#2FB6D9}
+*{box-sizing:border-box;margin:0}
+body{background:var(--bg);color:var(--ink);font-family:"Exo 2",sans-serif;min-height:100vh;display:flex;align-items:center;justify-content:center;padding:24px 16px}
+.card{width:100%;max-width:460px;background:var(--card);border:1px solid var(--borda);border-radius:20px;padding:36px 32px;text-align:center}
+.logo{display:block;max-width:100%;height:46px;margin:0 auto 22px;object-fit:contain}
+.marca{font-family:Michroma,sans-serif;font-size:13px;letter-spacing:.2em;color:var(--ink2);margin-bottom:22px}
+h1{font-family:Michroma,sans-serif;font-size:19px;letter-spacing:.08em;color:var(--cianoTxt);line-height:1.6;margin-bottom:12px}
+.sub{font-size:15px;color:var(--ink2);line-height:1.6;margin-bottom:26px}
+input{width:100%;background:#0A0F15;border:1px solid var(--borda);border-radius:10px;color:var(--ink);font-size:16px;font-family:"Exo 2",sans-serif;padding:14px 16px;margin-bottom:12px;outline:none}
+input:focus{border-color:var(--ciano)}
+.hp{position:absolute;left:-9999px;width:1px;height:1px;opacity:0}
+button{width:100%;background:var(--ciano);border:none;border-radius:10px;color:#fff;font-family:Rajdhani,sans-serif;font-weight:700;font-size:20px;letter-spacing:.06em;padding:15px;cursor:pointer}
+button:disabled{opacity:.6;cursor:wait}
+.lgpd{font-size:12px;color:var(--ink2);margin-top:14px;line-height:1.5}
+.erro{color:#F06FA8;font-size:14px;margin-top:10px;display:none}
+#sucesso{display:none}
+.sec{font-family:Rajdhani,sans-serif;font-weight:700;letter-spacing:.08em;color:var(--cianoTxt);text-align:left;margin:14px 0 8px}
+.mat{display:block;background:#0A0F15;border:1px solid var(--borda);border-radius:12px;padding:16px;margin-bottom:12px;text-decoration:none;color:var(--ink);font-size:16px;text-align:left}
+.mat:hover{border-color:var(--ciano)}
+.mat small{display:block;color:var(--ink2);font-size:12px;margin-top:3px}
+.ok{font-size:14px;color:var(--ink2);margin-top:10px;line-height:1.5}
+</style>
+</head>
+<body>
+<div class="card">
+  <img class="logo" src="logo.png" alt="Clube do Financeiro" onerror="this.outerHTML='<div class=&quot;marca&quot;>CLUBE DO FINANCEIRO</div>'">
+
+  <div id="form">
+    <h1>MATERIAIS DO CLUBE</h1>
+    <div class="sub">Dashboard com IA + Cobrança Automática: planilhas modelo, scripts e passo a passo — direto no seu e-mail, de graça.</div>
+    <input id="nome" type="text" placeholder="Seu nome" autocomplete="name">
+    <input id="email" type="email" placeholder="Seu melhor e-mail" autocomplete="email">
+    <input id="site" class="hp" type="text" tabindex="-1" autocomplete="off" aria-hidden="true">
+    <button id="btn" onclick="enviar()">QUERO O MATERIAL</button>
+    <div class="erro" id="erro"></div>
+    <div class="lgpd">Ao continuar, você aceita receber e-mails do Clube do Financeiro. Sem spam — é só cancelar quando quiser.</div>
+  </div>
+
+  <div id="sucesso">
+    <h1>MATERIAL LIBERADO ✓</h1>
+    <div class="sub">Clique para acessar — e mandei tudo no seu e-mail também.</div>
+    <div class="sec" style="margin-top:6px">📊 DASHBOARD COM IA · EP. 02</div>
+    <a class="mat" target="_blank" rel="noopener" href="https://docs.google.com/spreadsheets/d/1xJqnwqkm3hPyaxmkzxAdwvojQqtKySKj6qikXtWgs6A/edit">📄 Planilha modelo<small>abra e faça: Arquivo → Fazer uma cópia</small></a>
+    <a class="mat" target="_blank" rel="noopener" href="https://drive.google.com/file/d/14IZAnrxZF2DZYbwSZPZAMJg04cxwWtw5/view">📜 Script do painel (Code.gs)<small>copie o conteúdo inteiro</small></a>
+    <a class="mat" target="_blank" rel="noopener" href="https://docs.google.com/document/d/1iUMo6VHj0HNSgjS2aJLGJgbNvFwIumG7GxaEeQdEgu8/edit">🗺️ Passo a passo completo<small>os 12 passos + dúvidas comuns</small></a>
+    <div class="sec">🤖 COBRANÇA AUTOMÁTICA · EP. 03</div>
+    <a class="mat" target="_blank" rel="noopener" href="https://docs.google.com/spreadsheets/d/1a2a7u71eqeumxOqJpKCx6v3X2ZC9WS_kGLcR0PcFhAA/edit">📄 Planilha modelo — Contas a Receber<small>abra e faça: Arquivo → Fazer uma cópia</small></a>
+    <a class="mat" target="_blank" rel="noopener" href="https://drive.google.com/file/d/1EDDAjJ5idE8LBzMpQG97VlCtVnnPUsTg/view">📜 Script da cobrança (CobrancaAutomatica.gs)<small>copie o conteúdo inteiro</small></a>
+    <a class="mat" target="_blank" rel="noopener" href="https://docs.google.com/document/d/1zxWQq2VtRej4y4FgYHw2q1f7EAkSn3aPUcfR6oNwAp4/edit">🗺️ Passo a passo + textos da régua<small>instalação, ajustes e os 3 e-mails prontos</small></a>
+    <div class="ok">Dica: salva este link nos favoritos pra voltar quando for aplicar.</div>
+  </div>
+</div>
+
+<script>
+// Endereço do Apps Script (só recebe os dados; o visitante nunca abre esse link)
+var URL_SCRIPT = "https://script.google.com/macros/s/AKfycbwCRr0ra3xebQqHs3cPn137vrEB07dZDsFI_IVq7I_oOr5OxqbB_1BxmMgUNT0yPmLj/exec";
+
+function liberar(){
+  document.getElementById("form").style.display = "none";
+  document.getElementById("sucesso").style.display = "block";
+}
+
+function enviar(){
+  var nome  = document.getElementById("nome").value.trim();
+  var email = document.getElementById("email").value.trim();
+  var erro  = document.getElementById("erro");
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+    erro.textContent = "Confere o e-mail — parece incompleto.";
+    erro.style.display = "block";
+    return;
+  }
+  erro.style.display = "none";
+  var btn = document.getElementById("btn");
+  btn.disabled = true; btn.textContent = "LIBERANDO…";
+
+  var dados = new URLSearchParams({ nome: nome, email: email, site: document.getElementById("site").value });
+  // no-cors: não envia cookies do Google, então o erro de "várias contas" não acontece
+  fetch(URL_SCRIPT, { method: "POST", mode: "no-cors", body: dados })
+    .catch(function(){ /* mesmo se a rede falhar, a pessoa recebe os links na tela */ })
+    .then(liberar);
+}
+
+document.getElementById("email").addEventListener("keydown", function(ev){ if (ev.key === "Enter") enviar(); });
+</script>
+</body>
+</html>
