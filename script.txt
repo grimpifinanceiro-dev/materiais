@@ -1,0 +1,105 @@
+/**
+ * ============================================================
+ *  CAPTURA DE LEADS — Clube do Financeiro (versão 2)
+ * ============================================================
+ *  A página agora fica no GitHub Pages (fora do Google). Este
+ *  script só RECEBE o nome e o e-mail, grava na aba "Leads" e
+ *  manda o e-mail com os links.
+ *
+ *  Por que mudou: páginas do Apps Script dão erro ("Não foi
+ *  possível abrir o arquivo") para quem está logado em mais de
+ *  uma conta Google. Com a página fora do Google, isso some.
+ *
+ *  COMO ATUALIZAR (sem mudar o link /exec):
+ *  1. Apague tudo no editor e cole este arquivo → salvar
+ *  2. Implantar → Gerenciar implantações → lápis (editar)
+ *  3. Versão: "Nova versão"
+ *     Executar como: Eu | Quem pode acessar: Qualquer pessoa
+ *  4. Implantar   (NÃO use "Nova implantação": muda o link)
+ * ============================================================
+ */
+
+// ---------- CONFIGURAÇÃO ----------
+var PAGINA_NOVA      = 'https://grimpifinanceiro-dev.github.io/materiais/';
+// EP. 02 — Dashboard com IA
+var LINK_PLANILHA    = 'https://docs.google.com/spreadsheets/d/1xJqnwqkm3hPyaxmkzxAdwvojQqtKySKj6qikXtWgs6A/edit';
+var LINK_SCRIPT      = 'https://drive.google.com/file/d/14IZAnrxZF2DZYbwSZPZAMJg04cxwWtw5/view';
+var LINK_PASSOAPASSO = 'https://docs.google.com/document/d/1iUMo6VHj0HNSgjS2aJLGJgbNvFwIumG7GxaEeQdEgu8/edit';
+// EP. 03 — Cobrança Automática
+var LINK_PLANILHA_COB = 'https://docs.google.com/spreadsheets/d/1a2a7u71eqeumxOqJpKCx6v3X2ZC9WS_kGLcR0PcFhAA/edit';
+var LINK_SCRIPT_COB   = 'https://drive.google.com/file/d/1EDDAjJ5idE8LBzMpQG97VlCtVnnPUsTg/view';
+var LINK_PASSO_COB    = 'https://docs.google.com/document/d/1zxWQq2VtRej4y4FgYHw2q1f7EAkSn3aPUcfR6oNwAp4/edit';
+var NOME_ABA_LEADS   = 'Leads';
+var ENVIAR_EMAIL     = true;
+var ASSUNTO_EMAIL    = 'Seus materiais: Dashboard com IA + Cobrança Automática';
+
+// ---------- RECEBE O FORMULÁRIO DA PÁGINA NOVA ----------
+function doPost(e) {
+  var p = (e && e.parameter) || {};
+  if (p.site) return resposta_('ok');            // robô preencheu o campo escondido: ignora
+  try {
+    salvarLead(p.nome, p.email);
+    return resposta_('ok');
+  } catch (err) {
+    return resposta_('erro: ' + err.message);
+  }
+}
+
+// ---------- LINK ANTIGO (/exec) → manda para a página nova ----------
+function doGet() {
+  var html = '<!doctype html><html><head><meta charset="utf-8">' +
+    '<base target="_top"></head>' +
+    '<body style="background:#07090D;color:#E8EEF4;font-family:Arial,sans-serif;text-align:center;padding:60px 16px">' +
+    '<p style="font-size:18px;margin-bottom:24px">A página dos materiais mudou de endereço.</p>' +
+    '<a href="' + PAGINA_NOVA + '" style="background:#0891B2;color:#fff;padding:14px 28px;border-radius:10px;text-decoration:none;font-weight:bold">ABRIR OS MATERIAIS</a>' +
+    '</body></html>';
+  return HtmlService.createHtmlOutput(html)
+    .setTitle('Materiais grátis — Clube do Financeiro')
+    .addMetaTag('viewport', 'width=device-width, initial-scale=1');
+}
+
+// ---------- GRAVA O LEAD E MANDA O E-MAIL ----------
+function salvarLead(nome, email) {
+  email = String(email || '').trim().toLowerCase();
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) throw new Error('E-mail inválido.');
+  nome = String(nome || '').trim().slice(0, 120);
+
+  var trava = LockService.getScriptLock();       // evita duas gravações ao mesmo tempo
+  trava.waitLock(10000);
+  try {
+    var planilha = SpreadsheetApp.getActiveSpreadsheet();
+    var aba = planilha.getSheetByName(NOME_ABA_LEADS) || planilha.insertSheet(NOME_ABA_LEADS);
+    if (aba.getLastRow() === 0) aba.appendRow(['Data', 'Nome', 'E-mail']);
+    aba.appendRow([new Date(), nome, email]);
+  } finally {
+    trava.releaseLock();
+  }
+
+  if (ENVIAR_EMAIL) {
+    try {
+      MailApp.sendEmail({ to: email, subject: ASSUNTO_EMAIL, htmlBody: emailHtml_(nome) });
+    } catch (e) { /* cota diária estourada: a tela entrega os links mesmo assim */ }
+  }
+  return { ok: true };
+}
+
+function resposta_(txt) {
+  return ContentService.createTextOutput(txt).setMimeType(ContentService.MimeType.TEXT);
+}
+
+function emailHtml_(nome) {
+  var ola = nome ? 'Olá, ' + nome + '!' : 'Olá!';
+  return '<div style="font-family:Arial,sans-serif;max-width:560px;margin:0 auto;color:#1a1a1a">' +
+    '<h2 style="color:#0891B2">' + ola + '</h2>' +
+    '<p>Aqui estão os materiais dos vídeos do Clube do Financeiro:</p>' +
+    '<p><b>📊 Dashboard com IA (EP. 02)</b><br>' +
+    '📄 <a href="' + LINK_PLANILHA + '">Planilha modelo</a> (abra e faça: Arquivo → Fazer uma cópia)<br>' +
+    '📜 <a href="' + LINK_SCRIPT + '">Script do painel (Code.gs)</a><br>' +
+    '🗺️ <a href="' + LINK_PASSOAPASSO + '">Passo a passo completo</a></p>' +
+    '<p><b>🤖 Cobrança Automática (EP. 03)</b><br>' +
+    '📄 <a href="' + LINK_PLANILHA_COB + '">Planilha modelo — Contas a Receber</a> (Arquivo → Fazer uma cópia)<br>' +
+    '📜 <a href="' + LINK_SCRIPT_COB + '">Script da cobrança (CobrancaAutomatica.gs)</a><br>' +
+    '🗺️ <a href="' + LINK_PASSO_COB + '">Passo a passo + textos da régua</a></p>' +
+    '<p>Qualquer dúvida, responde este e-mail ou deixa um comentário no vídeo.</p>' +
+    '<p>— Jeferson · <b>Clube do Financeiro</b></p></div>';
+}
