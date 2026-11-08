@@ -1,0 +1,98 @@
+{
+  "fps": 60,
+  "total_frames": 1800,
+  "bpm": 120,
+  "frames_per_beat": 30,
+  "formats": [[1920, 1080], [1080, 1920]],
+  "rule": "every line <= 6 words; every fact sourced from the site (see brand/headline.txt)",
+  "shots": [
+    {
+      "id": "s1_hook",
+      "in": 0, "out": 150,
+      "idea": "Hook: finance work is more than spreadsheets",
+      "lines": [
+        { "text": "Mais do que fechar planilhas.", "role": "display", "accent": ["planilhas"], "in": 6 }
+      ],
+      "visual": "Black screen, a cyan line draws across a spreadsheet grid (frames 0-30); words land one by one, fully read by frame 50; grid fades and the word 'planilhas' gets a cyan strike at 96.",
+      "hold": "frames 50-130",
+      "source": "home: 'Trabalhar com finanças é mais do que executar tarefas e fechar planilhas.'"
+    },
+    {
+      "id": "s2_clube",
+      "in": 150, "out": 390,
+      "idea": "What it is: a learning club for finance people",
+      "lines": [
+        { "text": "Um clube de aprendizado financeiro.", "role": "title", "accent": ["clube"], "in": 156 },
+        { "text": "Aprenda. Aplique. Evolua.", "role": "eyebrow", "in": 240 }
+      ],
+      "visual": "Logo mark slides in small top-left; title by word; three tagline words snap on the beat (240, 270, 300).",
+      "hold": "frames 300-372",
+      "source": "home: 'Um clube de aprendizado financeiro' / 'Aprenda. Aplique. Evolua.'"
+    },
+    {
+      "id": "s3_dentro_1",
+      "in": 390, "out": 720,
+      "idea": "Inside, part 1: live meetings and the materials library",
+      "lines": [
+        { "text": "O que tem dentro", "role": "eyebrow", "in": 396 },
+        { "text": "Encontro mensal ao vivo", "role": "item", "in": 420 },
+        { "text": "Planilhas, modelos e checklists", "role": "item", "in": 510 },
+        { "text": "Material novo toda semana", "role": "item", "in": 600 }
+      ],
+      "visual": "Screenshot 02_plano_cdf floats in perspective on the right (left-bottom in 9:16) with cyan rim light; items stack with a cyan check drawn before each one.",
+      "hold": "each item >= 60 f; full list frames 640-702",
+      "source": "/lista/ CDF card"
+    },
+    {
+      "id": "s4_dentro_2",
+      "in": 720, "out": 1050,
+      "idea": "Inside, part 2: training tracks and community",
+      "lines": [
+        { "text": "Formação em BPO Financeiro", "role": "item", "in": 726 },
+        { "text": "Formação em Inteligência Artificial", "role": "item", "in": 816 },
+        { "text": "Comunidade e troca de experiências", "role": "item", "in": 906 }
+      ],
+      "visual": "Push from s3 (list scrolls up, power2.inOut); three cards light up in sequence on the beat, each with a thin cyan progress bar.",
+      "hold": "each card >= 60 f; all three frames 950-1032",
+      "source": "/lista/ CDF card + home 'Comunidade e troca de experiências'"
+    },
+    {
+      "id": "s5_data",
+      "in": 1050, "out": 1260,
+      "idea": "The opening date",
+      "lines": [
+        { "text": "Vagas abrem em", "role": "title", "in": 1056 },
+        { "text": "3 de dezembro", "role": "display", "accent": ["3", "dezembro"], "in": 1086 }
+      ],
+      "visual": "Cut to black; '3' counts in with a cyan ring drawing around it; selo-style frame like the site badge.",
+      "hold": "frames 1120-1240",
+      "source": "/lista/ badge 'VAGAS ABREM EM 3 DE DEZEMBRO'"
+    },
+    {
+      "id": "s6_lista",
+      "in": 1260, "out": 1500,
+      "idea": "Why join the list: early notice + founder price",
+      "lines": [
+        { "text": "Na lista, você sabe primeiro.", "role": "title", "accent": ["primeiro"], "in": 1266 },
+        { "text": "Preço de fundador", "role": "display", "accent": ["fundador"], "in": 1356 },
+        { "text": "Só no primeiro ano.", "role": "support", "in": 1392 }
+      ],
+      "visual": "Split: line 1 holds, then slides up (power2.inOut) as 'Preço de fundador' lands big with a cyan underline. No price number shown.",
+      "hold": "line 1 frames 1300-1350; founder block frames 1420-1482",
+      "source": "/lista/ 'recebe o aviso da abertura antes de todo mundo e garante o preço de fundador, que só existe no primeiro ano.'"
+    },
+    {
+      "id": "s7_cta",
+      "in": 1500, "out": 1800,
+      "idea": "Call to action",
+      "lines": [
+        { "text": "Entre na lista de espera", "role": "display", "accent": ["lista de espera"], "in": 1560 },
+        { "text": "É grátis.", "role": "support", "in": 1620 },
+        { "text": "clubedofinanceiro.com.br/lista", "role": "url", "in": 1650 }
+      ],
+      "visual": "Logo hit at 1500 (scale 0.92->1 expo.out, cyan flash + audio hit), logo moves up at 1536; CTA by word; URL inside a button styled like the site's 'Quero entrar na lista'. Final hold.",
+      "hold": "frames 1680-1800 (2 s end card)",
+      "source": "/lista/ H1 'Entre na lista de espera'; 'grátis' confirmed by user brief"
+    }
+  ]
+}
