@@ -38,7 +38,7 @@ Escala (px; 16:9 = 1920×1080 · 9:16 = 1080×1920):
 | Título | Michroma 400 | 64 | 58 | 0 | mista |
 | Item de lista | Exo 2 600 | 48 | 46 | 0 | mista |
 | Apoio | Exo 2 400 | 34 | 34 | 0 | mista |
-| Selo / eyebrow | Michroma 400 | 22 | 22 | 0.24em | CAIXA ALTA |
+| Selo / eyebrow | Michroma 400 | 28 | 30 | 0.24em | CAIXA ALTA |
 | URL | Exo 2 500 | 30 | 32 | 0.02em | minúscula |
 
 Line-height: Michroma 1.15 · Exo 2 1.3. Largura máx. de linha: 1500 px (16:9) / 920 px (9:16).

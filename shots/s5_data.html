@@ -1,0 +1,29 @@
+<!doctype html><html lang="pt-BR"><head><meta charset="utf-8"><link rel="stylesheet" href="../lib/common.css"><script src="../node_modules/gsap/dist/gsap.min.js"></script>
+<style>
+.ringbox{position:relative;width:320px;height:320px;margin:36px 0 30px;display:flex;align-items:center;justify-content:center}
+.ringbox svg{position:absolute;inset:0;overflow:visible}
+.ringbox circle{fill:none;stroke:var(--cyan);stroke-width:3}
+.ringbox .pulse{opacity:0;stroke-width:2}
+.ringbox .ticks{stroke:var(--cyan-35);stroke-width:2;stroke-dasharray:2 14}
+.big{font-family:'Michroma';font-size:200px;line-height:1;color:var(--cyan);text-shadow:0 0 40px rgba(31,182,222,.35);position:relative;top:4px}
+.fmt-v .ringbox{width:400px;height:400px;margin:56px 0 44px}
+.fmt-v .big{font-size:250px}
+</style></head><body><div id="stage">
+<div id="content">
+  <div id="t1" class="line title">Vagas abrem em</div>
+  <div class="ringbox"><svg viewBox="0 0 320 320"><circle class="ticks" cx="160" cy="160" r="152"/><circle id="ring" cx="160" cy="160" r="138"/><circle class="pulse" cx="160" cy="160" r="138"/><circle class="pulse" cx="160" cy="160" r="138"/></svg><span class="big" id="big">3</span></div>
+  <div id="t2" class="line display">de dezembro</div>
+</div></div><script src="../lib/stage.js"></script><script>
+CDF.build(({tl,f,words,exit,push,dur})=>{
+  words('#t1',0);
+  push('#content',1,1.03,30,dur-44);
+  const ring=document.getElementById('ring'), L=ring.getTotalLength();
+  gsap.set(ring,{rotate:-90,transformOrigin:'50% 50%'});
+  tl.fromTo(ring,{strokeDasharray:L,strokeDashoffset:L},{strokeDashoffset:0,duration:f(36),ease:'power3.out'},f(28));
+  tl.fromTo('.ticks',{rotate:0,opacity:0,transformOrigin:'50% 50%'},{rotate:40,opacity:1,duration:f(dur-40),ease:'power2.inOut'},f(28));
+  tl.fromTo('#big',{opacity:0,scale:.6,filter:'blur(10px)'},{opacity:1,scale:1,filter:'blur(0px)',duration:f(30),ease:'expo.out'},f(36));
+  words('#t2',50);
+  document.querySelectorAll('.pulse').forEach((p,i)=>tl.fromTo(p,{scale:1,opacity:.7,transformOrigin:'50% 50%'},{scale:1.35,opacity:0,duration:f(40),ease:'expo.out'},f(90+60*i)));
+  exit(['#t1','.ringbox','#t2'],dur-14);
+});
+</script></body></html>

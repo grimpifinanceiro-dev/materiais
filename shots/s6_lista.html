@@ -1,0 +1,29 @@
+<!doctype html><html lang="pt-BR"><head><meta charset="utf-8"><link rel="stylesheet" href="../lib/common.css"><script src="../node_modules/gsap/dist/gsap.min.js"></script>
+<style>
+#b2{display:flex;flex-direction:column;align-items:center;margin-top:90px}
+.fmt-v #b2{margin-top:110px}
+.uline{width:420px;height:4px;background:var(--cyan);box-shadow:0 0 16px rgba(31,182,222,.5);margin:30px 0 30px;transform-origin:50% 50%;transform:scaleX(0)}
+#p2{font-size:48px;font-weight:500;color:var(--white)}
+.fmt-v #p2{font-size:52px}
+</style></head><body><div id="stage">
+<div id="content">
+  <div id="b1" class="line title" data-accent="primeiro">Na lista, | você sabe primeiro.</div>
+  <div id="b2">
+    <div id="p1" class="line display" data-accent="fundador">Preço de fundador</div>
+    <div class="uline" id="ul"></div>
+    <div id="p2" class="line support">Só no primeiro ano.</div>
+  </div>
+</div></div><script src="../lib/stage.js"></script><script>
+CDF.build(({tl,f,words,exit,push,dur})=>{
+  push('#content',1,1.02,90,dur-104);
+  const b1=document.getElementById('b1'), b2=document.getElementById('b2');
+  const shift=(b2.offsetHeight+parseFloat(getComputedStyle(b2).marginTop))/2;
+  gsap.set(b1,{y:shift});
+  words('#b1',0);
+  tl.to(b1,{y:0,opacity:1,duration:f(30),ease:'power2.inOut'},f(84));
+  words('#p1',96);
+  tl.to('#ul',{scaleX:1,duration:f(20),ease:'power3.out'},f(118));
+  words('#p2',130);
+  exit(['#b1','#b2'],dur-14);
+});
+</script></body></html>

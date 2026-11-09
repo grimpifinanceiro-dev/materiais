@@ -1,0 +1,6 @@
+node_modules/
+out/frames/
+out/seg/
+out/check/
+out/critic/
+out_render*.log

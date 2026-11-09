@@ -1,0 +1,37 @@
+<!doctype html><html lang="pt-BR"><head><meta charset="utf-8"><link rel="stylesheet" href="../lib/common.css"><script src="../node_modules/gsap/dist/gsap.min.js"></script>
+<style>
+.logo{width:640px;display:block}
+.fmt-v .logo{width:540px}
+#cta{margin-top:70px}
+#sub{margin-top:28px;font-size:50px;font-weight:500;color:var(--white)}
+.btn{margin-top:56px;display:inline-flex;align-items:center;gap:20px;padding:30px 60px;border-radius:12px;
+  background:linear-gradient(180deg,var(--cyan-hi),var(--cyan));color:var(--black)}
+.btn .url{font-size:40px}.btn .arr{font-family:'Michroma';font-size:34px}.fmt-v .btn .url{font-size:38px}
+.fmt-v #cta{margin-top:90px}
+.fmt-v .btn{padding:28px 40px}
+.flash{position:absolute;inset:0;background:radial-gradient(circle at 50% 50%,rgba(79,209,240,.55),rgba(31,182,222,.12) 22%,rgba(31,182,222,0) 40%);opacity:0;z-index:5;pointer-events:none}
+.ring2{position:absolute;left:50%;top:50%;width:600px;height:600px;margin:-300px 0 0 -300px;border-radius:50%;border:2px solid var(--cyan);opacity:0;z-index:4}
+</style></head><body data-nowipe><div id="stage">
+<div class="flash" id="flash"></div><div class="ring2" id="ring2"></div>
+<div id="content">
+  <img class="logo" id="logo" src="../brand/logo/cdf_logo_dark.png">
+  <div id="cta" class="line display" data-accent="lista de espera">Entre na | lista de espera</div>
+  <div id="sub" class="line support">É grátis.</div>
+  <div class="btn" id="btn"><span class="line url" id="url">clubedofinanceiro.com.br/lista</span><span class="arr">→</span></div>
+</div></div><script src="../lib/stage.js"></script><script>
+CDF.build(({tl,f,words,exit,push,dur,fmt,H})=>{
+  push('#content',1,1.025,180,dur-180);
+  const logo=document.getElementById('logo');
+  const r=logo.getBoundingClientRect(); const dy=H/2-(r.top+r.height/2); const S=fmt==='v'?1.45:1.4;
+  // hit: logo lands big in the center, then moves up into the end card
+  tl.fromTo(logo,{opacity:0,y:dy,scale:S*.9},{opacity:1,scale:S,duration:f(30),ease:'expo.out'},0);
+  tl.fromTo('#flash',{opacity:1},{opacity:0,duration:f(18),ease:'expo.out'},0);
+  tl.fromTo('#ring2',{opacity:.7,scale:.4},{opacity:0,scale:2.4,duration:f(44),ease:'expo.out'},0);
+  tl.to(logo,{y:0,scale:1,duration:f(36),ease:'power2.inOut'},f(36));
+  words('#cta',60);
+  words('#sub',120,{y:24});
+  tl.fromTo('#btn',{opacity:0,scale:.9,y:24},{opacity:1,scale:1,y:0,duration:f(26),ease:'expo.out'},f(150));
+  tl.fromTo('#url .w',{opacity:0},{opacity:1,duration:f(10),ease:'power2.out'},f(150));
+  tl.fromTo('#btn',{boxShadow:'0 0 0px rgba(31,182,222,0)'},{boxShadow:'0 0 70px rgba(31,182,222,.55)',duration:f(45),ease:'sine.inOut',yoyo:true,repeat:2},f(176));
+});
+</script></body></html>

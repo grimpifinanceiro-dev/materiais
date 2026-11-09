@@ -1,0 +1,33 @@
+<!doctype html><html lang="pt-BR"><head><meta charset="utf-8"><link rel="stylesheet" href="../lib/common.css"><script src="../node_modules/gsap/dist/gsap.min.js"></script>
+<style>
+.sheet{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);display:grid;grid-template-columns:repeat(8,1fr);
+  width:1360px;height:640px;border:1px solid #2c333a;}
+.fmt-v .sheet{width:920px;height:1100px;grid-template-columns:repeat(5,1fr)}
+.cell{border-right:1px solid #2c333a;border-bottom:1px solid #2c333a;position:relative}
+.cell i{position:absolute;left:14px;top:50%;height:8px;margin-top:-4px;border-radius:4px;background:#232a30}
+.scan{position:absolute;left:50%;top:50%;width:1360px;height:2px;margin-left:-680px;background:var(--cyan);box-shadow:0 0 16px var(--cyan);transform-origin:0 50%}
+.fmt-v .scan{width:920px;margin-left:-460px}
+#hook{position:relative;z-index:2}
+.strike{position:absolute;left:-4%;width:108%;top:52%;height:10px;margin-top:-5px;background:var(--cyan);box-shadow:0 0 14px rgba(31,182,222,.6);transform-origin:0 50%;transform:scaleX(0)}
+</style></head><body><div id="stage">
+<div class="sheet" id="sheet"></div><div class="scan" id="scan"></div>
+<div id="content"><div id="hook" class="line display">Mais do que fechar planilhas.</div></div>
+</div><script src="../lib/stage.js"></script><script>
+CDF.build(({tl,f,words,exit,dur,rng,fmt})=>{
+  const sheet=document.getElementById('sheet'), r=rng(7), n=fmt==='v'?5*11:8*8;
+  for(let i=0;i<n;i++){const c=document.createElement('div');c.className='cell';
+    if(r()<.55){const b=document.createElement('i');b.style.width=(25+r()*55)+'%';c.appendChild(b);} sheet.appendChild(c);}
+  const cells=[...sheet.children].sort(()=>0); const order=cells.map((c,i)=>[r(),c]).sort((a,b)=>a[0]-b[0]).map(x=>x[1]);
+  tl.fromTo(sheet,{opacity:0,scale:1.04},{opacity:1,scale:1,duration:f(30),ease:'expo.out'},0);
+  tl.fromTo('#scan',{scaleX:0},{scaleX:1,duration:f(30),ease:'power3.out'},0)
+    .to('#scan',{opacity:0,duration:f(16),ease:'power2.inOut'},f(30));
+  words('#hook',2,{stagger:3,dur:22});
+  const pl=[...document.querySelectorAll('#hook .w')].find(w=>w.textContent.startsWith('planilhas'));
+  const s=document.createElement('span');s.className='strike';pl.appendChild(s);
+  tl.to(s,{scaleX:1,duration:f(20),ease:'power3.out'},f(60));
+  tl.to(pl,{color:'rgba(242,245,247,.5)',duration:f(18),ease:'power2.inOut'},f(62));
+  tl.fromTo('#hook',{scale:1},{scale:fmt==='v'?1:1.04,duration:f(70),ease:'power2.inOut'},f(60));
+  tl.to(order,{opacity:0,duration:f(18),ease:'power2.inOut',stagger:f(30/order.length)},f(64));
+  exit(['#hook'],dur-14);
+});
+</script></body></html>

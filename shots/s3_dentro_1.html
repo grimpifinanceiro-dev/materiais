@@ -1,0 +1,31 @@
+<!doctype html><html lang="pt-BR"><head><meta charset="utf-8"><link rel="stylesheet" href="../lib/common.css"><script src="../node_modules/gsap/dist/gsap.min.js"></script>
+<style>
+.col{display:flex;flex-direction:column;align-items:flex-start}
+.eyebrow{margin-bottom:44px}
+.row{display:flex;align-items:center;gap:30px;margin:22px 0}
+.row svg{width:56px;height:56px;flex:none}
+.row path{fill:none;stroke:var(--cyan);stroke-width:4.5;stroke-linecap:round;stroke-linejoin:round}
+.item{font-size:66px;text-align:left}
+.fmt-v .item{font-size:52px}
+.fmt-v .row svg{width:46px;height:46px}
+.fmt-v .row{gap:22px;margin:26px 0}
+</style></head><body><div id="stage">
+<div id="content">
+  <div class="col">
+    <div class="line eyebrow" id="eb">O que tem dentro</div>
+    <div class="row"><svg viewBox="0 0 46 46"><path d="M6 24 L18 36 L40 10"/></svg><div class="line item">Encontro mensal ao vivo</div></div>
+    <div class="row"><svg viewBox="0 0 46 46"><path d="M6 24 L18 36 L40 10"/></svg><div class="line item">Planilhas, modelos e checklists</div></div>
+    <div class="row"><svg viewBox="0 0 46 46"><path d="M6 24 L18 36 L40 10"/></svg><div class="line item">Material novo toda semana</div></div>
+  </div>
+</div></div><script src="../lib/stage.js"></script><script>
+CDF.build(({tl,f,words,push,dur})=>{
+  words('#eb',0,{y:20});
+  document.querySelectorAll('.row').forEach((row,i)=>{
+    const at=18+66*i, p=row.querySelector('path'), L=p.getTotalLength();
+    tl.fromTo(p,{strokeDasharray:L,strokeDashoffset:L,opacity:0},{strokeDashoffset:0,opacity:1,duration:f(16),ease:'power3.out'},f(at));
+    words(row.querySelector('.line'),at+5);
+  });
+  push('.col',1,1.03,0,dur-16);
+  tl.to('#content',{y:-120,opacity:0,filter:'blur(6px)',duration:f(16),ease:'expo.in'},f(dur-16));
+});
+</script></body></html>

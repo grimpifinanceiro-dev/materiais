@@ -1,0 +1,23 @@
+<!doctype html><html lang="pt-BR"><head><meta charset="utf-8"><link rel="stylesheet" href="../lib/common.css"><script src="../node_modules/gsap/dist/gsap.min.js"></script>
+<style>
+.mark{height:110px;margin-bottom:56px}
+.fmt-v .mark{height:130px;margin-bottom:72px}
+.rule{width:160px;height:2px;background:var(--cyan);margin:48px 0 40px;transform-origin:50% 50%}
+.tags{display:flex;gap:40px;font-family:'Michroma';font-size:36px;letter-spacing:.2em;text-transform:uppercase;color:var(--cyan-hi)}
+.fmt-v .tags{flex-direction:column;gap:24px;font-size:38px}
+</style></head><body><div id="stage">
+<div id="content">
+  <img class="mark" id="mark" src="../brand/logo/cdf_mark.png">
+  <div id="title" class="line display" data-accent="clube">Um clube de | aprendizado financeiro.</div>
+  <div class="rule" id="rule"></div>
+  <div class="tags"><span class="tag">Aprenda.</span><span class="tag">Aplique.</span><span class="tag">Evolua.</span></div>
+</div></div><script src="../lib/stage.js"></script><script>
+CDF.build(({tl,f,words,exit,dur})=>{
+  tl.fromTo('#mark',{opacity:0,scale:.7,y:20},{opacity:1,scale:1,y:0,duration:f(28),ease:'expo.out'},0);
+  words('#title',4);
+  tl.fromTo('#rule',{scaleX:0},{scaleX:1,duration:f(20),ease:'power3.out'},f(64));
+  [...document.querySelectorAll('.tag')].forEach((t,i)=>
+    tl.fromTo(t,{opacity:0,scale:1.25,filter:'blur(6px)'},{opacity:1,scale:1,filter:'blur(0px)',duration:f(18),ease:'expo.out'},f(90+30*i)));
+  exit(['#mark','#title','#rule','.tags'],dur-14);
+});
+</script></body></html>
